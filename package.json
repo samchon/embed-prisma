@@ -1,6 +1,6 @@
 {
   "name": "embed-prisma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Exposes Prisma's compiler API for NodeJS applications",
   "scripts": {
     "build": "rimraf lib && tsc && rollup -c",
