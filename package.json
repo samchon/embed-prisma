@@ -1,0 +1,55 @@
+{
+  "name": "embed-prisma",
+  "version": "1.0.0",
+  "description": "Exposes Prisma's compiler API for NodeJS applications",
+  "scripts": {
+    "build": "rimraf lib && tsc",
+    "dev": "pnpm run build --watch"
+  },
+  "keywords": [
+    "prisma",
+    "compiler",
+    "schema",
+    "validation",
+    "documentation",
+    "diagram",
+    "typescript"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/embed-prisma"
+  },
+  "homepage": "https://github.com/samchon/embed-prisma",
+  "bugs": {
+    "url": "https://github.com/samchon/embed-prisma/issues"
+  },
+  "files": [
+    "lib",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "@prisma/client-generator-js": "^6.8.2",
+    "@prisma/generator-helper": "^6.8.2",
+    "@prisma/internals": "^6.8.2",
+    "prisma-markdown": "^3.0.1"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/node": "^22.15.18",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.8.3"
+  },
+  "main": "src/index.ts",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib/index.js",
+    "module": "lib/index.mjs",
+    "typings": "lib/index.d.ts"
+  }
+}

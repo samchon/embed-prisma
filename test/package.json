@@ -1,0 +1,22 @@
+{
+  "name": "@embed-prisma/test",
+  "version": "0.0.0",
+  "description": "Test functions for embed-prisma",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "prepare": "ts-patch install"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.8.3"
+  },
+  "dependencies": {
+    "@nestia/e2e": "^6.0.3",
+    "chalk": "4.1.2",
+    "embed-prisma": "workspace:^",
+    "typia": "^9.3.0"
+  }
+}
