@@ -1,7 +1,7 @@
 {
-  "name": "@embed-prisma-compiler/test",
+  "name": "@embed-prisma/test",
   "version": "0.0.0",
-  "description": "Test functions for embed-prisma-compiler",
+  "description": "Test functions for embed-prisma",
   "scripts": {
     "start": "ts-node src/index.ts",
     "prepare": "ts-patch install"
@@ -16,7 +16,7 @@
   "dependencies": {
     "@nestia/e2e": "^6.0.3",
     "chalk": "4.1.2",
-    "embed-prisma-compiler": "workspace:^",
+    "embed-prisma": "workspace:^",
     "typia": "^9.3.0"
   }
 }

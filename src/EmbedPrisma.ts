@@ -64,7 +64,7 @@ export class EmbedPrisma {
   ): Promise<IEmbedPrismaResult> {
     // PREPARE DIRECTORIES
     const directory: string = await fs.promises.mkdtemp(
-      `${os.tmpdir()}/embed-prisma-compiler-`,
+      `${os.tmpdir()}/embed-prisma-`,
     );
     await fs.promises.mkdir(`${directory}/schemas`, {
       recursive: true,

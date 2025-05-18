@@ -1,16 +1,16 @@
-# Embed-Prisma-Compiler
+# Embed-prisma
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/embed-prisma-compiler/blob/master/LICENSE)
-[![NPM Version](https://img.shields.io/npm/v/embed-prisma-compiler.svg)](https://www.npmjs.com/package/embed-prisma-compiler)
-[![NPM Downloads](https://img.shields.io/npm/dm/embed-prisma-compiler.svg)](https://www.npmjs.com/package/embed-prisma-compiler)
-[![Build Status](https://github.com/samchon/embed-prisma-compiler/workflows/build/badge.svg)](https://github.com/samchon/embed-prisma-compiler/actions?query=workflow%3Abuild)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/embed-prisma/blob/master/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/embed-prisma.svg)](https://www.npmjs.com/package/embed-prisma)
+[![NPM Downloads](https://img.shields.io/npm/dm/embed-prisma.svg)](https://www.npmjs.com/package/embed-prisma)
+[![Build Status](https://github.com/samchon/embed-prisma/workflows/build/badge.svg)](https://github.com/samchon/embed-prisma/actions?query=workflow%3Abuild)
 [![Discord Badge](https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ)](https://discord.gg/E94XhzrUCZ)
 
 A library that exposes Prisma's compiler API for NodeJS applications.
 
 It enables programmatic schema compilation without requiring the Prisma CLI.
 
-Note that, `embed-prisma-compiler` works only on NodeJS environment. It does not work on Browser.
+Note that, `embed-prisma` works only on NodeJS environment. It does not work on Browser.
 
 ## Features
 
@@ -24,13 +24,13 @@ Note that, `embed-prisma-compiler` works only on NodeJS environment. It does not
 ## Installation
 
 ```bash
-npm install embed-prisma-compiler
+npm install embed-prisma
 ```
 
 ## User Guides
 
 ```typescript
-import { EmbedPrisma, IEmbedPrismaResult } from "embed-prisma-compiler";
+import { EmbedPrisma, IEmbedPrismaResult } from "embed-prisma";
 
 const prisma: EmbedPrisma = new EmbedPrisma();
 const result: IEmbedPrismaResult = await prisma.compile({
@@ -85,7 +85,7 @@ end
 
 [`AutoBE`](https://github.com/wrtnlabs/autobe), an AI vibe coding agent of backend server.
 
-It makes NestJS/Prisma stacked backend application, and [`embed-typescript-compiler`](https://github.com/samchon/embed-typescript-compiler) together with `embed-prisma-compiler` are utilized for compiler feedback strategy, correcting AI's programming language level mistakes.
+It makes NestJS/Prisma stacked backend application, and [`embed-typescript-compiler`](https://github.com/samchon/embed-typescript-compiler) together with `embed-prisma` are utilized for compiler feedback strategy, correcting AI's programming language level mistakes.
 
 The compiler feedback approach is particularly powerful for:
 
@@ -94,4 +94,4 @@ The compiler feedback approach is particularly powerful for:
 - Generating accurate documentation and visualizations from validated schemas
 - Creating type-safe client interfaces that ensure consistent API usage
 
-Beyond AI applications, `embed-prisma-compiler` is valuable for development tools, build pipelines, and any application that needs to validate or process Prisma schemas programmatically.
+Beyond AI applications, `embed-prisma` is valuable for development tools, build pipelines, and any application that needs to validate or process Prisma schemas programmatically.

@@ -1,5 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
-import { EmbedPrisma, IEmbedPrismaResult } from "embed-prisma-compiler";
+import { EmbedPrisma, IEmbedPrismaResult } from "embed-prisma";
 import typia from "typia";
 
 import { TestGlobal } from "../TestGlobal";
