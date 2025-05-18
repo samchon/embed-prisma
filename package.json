@@ -1,10 +1,10 @@
 {
   "name": "embed-prisma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Exposes Prisma's compiler API for NodeJS applications",
   "scripts": {
-    "build": "rimraf lib && tsc",
-    "dev": "pnpm run build --watch"
+    "build": "rimraf lib && tsc && rollup -c",
+    "dev": "rimraf lib && tsc --watch"
   },
   "keywords": [
     "prisma",
@@ -39,10 +39,13 @@
     "prisma-markdown": "^3.0.1"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.15.18",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
+    "rollup": "^4.41.0",
     "typescript": "~5.8.3"
   },
   "main": "src/index.ts",
