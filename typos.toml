@@ -12,5 +12,6 @@ typia = "typia"
 
 [files]
 extend-exclude = [
-  "*.json", 
+  "*.json",
+  "*.prisma",
 ]
