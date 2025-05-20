@@ -135,9 +135,7 @@ export class EmbedPrisma {
     );
     return {
       type: "success",
-      schemas: Object.fromEntries(
-        Object.entries(rawFiles).filter(([key]) => key.endsWith(".prisma")),
-      ),
+      schemas: Object.fromEntries(schemas),
       nodeModules: Object.fromEntries([
         ...Object.entries(rawFiles).filter(([key]) => key.endsWith(".d.ts")),
         [
