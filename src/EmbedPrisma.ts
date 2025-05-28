@@ -14,6 +14,7 @@ import path from "path";
 import { IPrismaMarkdownChapter, PrismaMarkdown } from "prisma-markdown";
 
 import { IEmbedPrismaResult } from "./IEmbedPrismaResult";
+import { escapeColorCodes } from "./utils/escapeColorCodes";
 
 /**
  * A class that exposes Prisma's compiler API for integration
@@ -186,7 +187,7 @@ function catchPrismaError(
   )
     return {
       type: "failure",
-      reason: error.message,
+      reason: escapeColorCodes(error.message),
     };
   return {
     type: "exception",

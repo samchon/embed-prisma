@@ -69,14 +69,15 @@ subgraph "Backend Coding Agent"
   coder("Facade Controller")
 end
 subgraph "Functional Agents"
-  coder --"Requirements Analyses"--> analyze("Analyze")
+  coder --"Requirements Analysis"--> analyze("Analyze")
   coder --"ERD"--> prisma("Prisma")
   coder --"API Design"--> interface("Interface")
   coder --"Test Codes" --> test("Test")
   coder --"Main Program" --> realize("Realize")
 end
 subgraph "Compiler Feedback"
-  prisma --"diagnoses" --> prismaCompiler("Prisma Compiler")
+  prisma --"validates" --> prismaCompiler("Prisma Compiler")
+  interface --"validates" --> openapiValidator("OpenAPI Validator")
   interface --"generates" --> tsCompiler("TypeScript Compiler")
   test --"validates" --> tsCompiler("TypeScript Compiler")
   realize --"validates" --> tsCompiler("TypeScript Compiler")
