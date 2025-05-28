@@ -1,0 +1,77 @@
+[31m[1mPrisma schema validation[22m[39m - (mergeSchemas wasm)
+Error code: P1012
+[31m[1m[1;91merror[0m: [1mError validating field `user_activities` in model `categories`: The relation field `user_activities` on model `categories` is missing an opposite relation field on the model `user_activities`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-02-board.prisma:81[0m
+[1;94m   | [0m
+[1;94m80 | [0m  feeds           feeds[]
+[1;94m81 | [0m  [1;91muser_activities user_activities[][0m
+[1;94m82 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `feeds` in model `posts`: The relation field `feeds` on model `posts` is missing an opposite relation field on the model `feeds`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-02-board.prisma:135[0m
+[1;94m   | [0m
+[1;94m134 | [0m  comments        comments[]
+[1;94m135 | [0m  [1;91mfeeds           feeds[][0m
+[1;94m136 | [0m  user_activities user_activities[]
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `user_activities` in model `posts`: The relation field `user_activities` on model `posts` is missing an opposite relation field on the model `user_activities`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-02-board.prisma:136[0m
+[1;94m   | [0m
+[1;94m135 | [0m  feeds           feeds[]
+[1;94m136 | [0m  [1;91muser_activities user_activities[][0m
+[1;94m137 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `feeds` in model `comments`: The relation field `feeds` on model `comments` is missing an opposite relation field on the model `feeds`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-03-comments.prisma:70[0m
+[1;94m   | [0m
+[1;94m69 | [0m  comment_reports comment_reports[]
+[1;94m70 | [0m  [1;91mfeeds           feeds[][0m
+[1;94m71 | [0m  user_activities user_activities[]
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `user_activities` in model `comments`: The relation field `user_activities` on model `comments` is missing an opposite relation field on the model `user_activities`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-03-comments.prisma:71[0m
+[1;94m   | [0m
+[1;94m70 | [0m  feeds           feeds[]
+[1;94m71 | [0m  [1;91muser_activities user_activities[][0m
+[1;94m72 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `post` in model `feeds`: The relation field `post` on model `feeds` is missing an opposite relation field on the model `posts`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-04-feed.prisma:49[0m
+[1;94m   | [0m
+[1;94m48 | [0m  /// Related post (if type is "post").
+[1;94m49 | [0m  [1;91mpost posts? @relation("FeedPost", fields: [entity_id], references: [id], onDelete: Cascade, map: "feeds_entity_id_post_fkey")[0m
+[1;94m50 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `comment` in model `feeds`: The relation field `comment` on model `feeds` is missing an opposite relation field on the model `comments`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-04-feed.prisma:52[0m
+[1;94m   | [0m
+[1;94m51 | [0m  /// Related comment (if type is "comment").
+[1;94m52 | [0m  [1;91mcomment comments? @relation("FeedComment", fields: [entity_id], references: [id], onDelete: Cascade, map: "feeds_entity_id_comment_fkey")[0m
+[1;94m53 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `post` in model `user_activities`: The relation field `post` on model `user_activities` is missing an opposite relation field on the model `posts`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-04-feed.prisma:111[0m
+[1;94m   | [0m
+[1;94m110 | [0m  /// Related post for post-related activities.
+[1;94m111 | [0m  [1;91mpost posts? @relation("UserActivityPost", fields: [entity_id], references: [id], onDelete: Cascade, map: "user_activities_entity_id_post_fkey")[0m
+[1;94m112 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `comment` in model `user_activities`: The relation field `comment` on model `user_activities` is missing an opposite relation field on the model `comments`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-04-feed.prisma:114[0m
+[1;94m   | [0m
+[1;94m113 | [0m  /// Related comment for comment-related activities.
+[1;94m114 | [0m  [1;91mcomment comments? @relation("UserActivityComment", fields: [entity_id], references: [id], onDelete: Cascade, map: "user_activities_entity_id_comment_fkey")[0m
+[1;94m115 | [0m
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating field `category` in model `user_activities`: The relation field `category` on model `user_activities` is missing an opposite relation field on the model `categories`. Either run `prisma format` or add it manually.[0m
+  [1;94m-->[0m  [4mschema-04-feed.prisma:117[0m
+[1;94m   | [0m
+[1;94m116 | [0m  /// Related category for category-related activities.
+[1;94m117 | [0m  [1;91mcategory categories? @relation("UserActivityCategory", fields: [entity_id], references: [id], onDelete: Cascade, map: "user_activities_entity_id_category_fkey")[0m
+[1;94m118 | [0m
+[1;94m   | [0m
+
+Validation Error Count: 10[22m[39m
+[Context: mergeSchemas]
+
+Prisma CLI Version : 6.8.2
