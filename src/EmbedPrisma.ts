@@ -8,6 +8,7 @@ import {
   getDMMF,
   mergeSchemas,
 } from "@prisma/internals";
+import crypto from "crypto";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -65,7 +66,7 @@ export class EmbedPrisma {
   ): Promise<IEmbedPrismaResult> {
     // PREPARE DIRECTORIES
     const directory: string = await fs.promises.mkdtemp(
-      `${os.tmpdir()}/embed-prisma-`,
+      `${os.tmpdir()}/embed-prisma-${crypto.randomUUID()}`,
     );
     await fs.promises.mkdir(`${directory}/schemas`, {
       recursive: true,
