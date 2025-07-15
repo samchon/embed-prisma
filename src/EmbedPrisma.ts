@@ -65,7 +65,7 @@ export class EmbedPrisma {
   ): Promise<IEmbedPrismaResult> {
     // PREPARE DIRECTORIES
     const directory: string = await fs.promises.mkdtemp(
-      `${os.tmpdir()}/embed-prisma-${Math.random().toString(16).substring(2)}`,
+      `${os.tmpdir()}/embed-prisma-${crypto.randomUUID()}`,
     );
     await fs.promises.mkdir(`${directory}/schemas`, {
       recursive: true,
