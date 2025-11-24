@@ -96,7 +96,6 @@ export class EmbedPrisma {
     const document: DMMF.Document = await getDMMF({ datamodel: schemas });
     const config: ConfigMetaFormat = await getConfig({
       datamodel: schemas,
-      ignoreEnvVarErrors: true,
     });
 
     // STORE SCHEMA FILES
@@ -113,7 +112,7 @@ export class EmbedPrisma {
       schemaPath: `${directory}/schemas`,
       outputDir: `${directory}/output`,
       runtimeSourcePath: require
-        .resolve("@prisma/client/runtime/library.js")
+        .resolve("@prisma/client/runtime/client.js")
         .split(path.sep)
         .slice(0, -1)
         .join(path.sep),

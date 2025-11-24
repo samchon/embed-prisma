@@ -10,6 +10,7 @@ export const test_compiler_prisma_correct = async (): Promise<void> => {
     const result: IEmbedPrismaResult = await compiler.compile(
       await TestGlobal.readExampleSchemas(project),
     );
+    if (result.type !== "success") console.log(result);
     TestValidator.equals("result")(result.type)("success");
     typia.assertEquals(result.type);
   }

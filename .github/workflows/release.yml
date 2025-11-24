@@ -1,19 +1,19 @@
 # author: elliot-huffman
 name: release
+permissions:
+  id-token: write
+  contents: write
 on:
   release:
     types: [created]
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20.x
+          node-version: 24.x
           registry-url: https://registry.npmjs.org/
       - uses: pnpm/action-setup@v2
         with:
@@ -25,5 +25,4 @@ jobs:
       - name: Publish to npm
         run: pnpm --filter=./ -r publish --no-git-checks --provenance
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
           NPM_CONFIG_PROVENANCE: true
