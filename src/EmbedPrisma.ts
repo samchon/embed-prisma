@@ -1,5 +1,5 @@
 import { generateClient } from "@prisma/client-generator-ts";
-import { DMMF } from "@prisma/generator-helper";
+import { DMMF, GeneratorConfig } from "@prisma/generator-helper";
 import {
   ConfigMetaFormat,
   MultipleSchemas,
@@ -96,6 +96,17 @@ export class EmbedPrisma {
     const config: ConfigMetaFormat = await getConfig({
       datamodel: schemas,
     });
+    const generator: GeneratorConfig | undefined = config.generators.find(
+      (g) => g.name === "client",
+    );
+    if (generator === undefined)
+      throw new Error(`Configure "generator client".`);
+    else if (generator.provider?.value !== "prisma-client")
+      throw new Error(
+        `"generator client" must have "provider" as "prisma-client".`,
+      );
+    else if (!generator.output?.value)
+      throw new Error(`"generator client" must have an "output" field.`);
 
     // STORE SCHEMA FILES
     await Promise.all(
@@ -111,7 +122,7 @@ export class EmbedPrisma {
       runtimeBase: "./runtime",
       outputDir: `${directory}/output`,
       generator: {
-        ...config.generators.find((g) => g.name === "client")!,
+        ...generator,
         isCustomOutput: true,
       },
       dmmf: document,
