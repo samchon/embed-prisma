@@ -119,7 +119,7 @@ export class EmbedPrisma {
     await generateClient({
       datamodel: merged,
       schemaPath: `${directory}/schemas`,
-      runtimeBase: "./runtime",
+      runtimeBase: "@prisma/client/runtime",
       outputDir: `${directory}/output`,
       generator: {
         ...generator,
