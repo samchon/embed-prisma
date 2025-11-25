@@ -78,8 +78,7 @@ export class EmbedPrisma {
       return catchPrismaError(error);
     } finally {
       try {
-        console.log(directory);
-        // await fs.promises.rm(directory, { recursive: true });
+        await fs.promises.rm(directory, { recursive: true });
       } catch {}
     }
   }
@@ -133,13 +132,7 @@ export class EmbedPrisma {
     return {
       type: "success",
       schemas: Object.fromEntries(schemas),
-      nodeModules: Object.fromEntries([
-        ...Object.entries(rawFiles).filter(([key]) => key.endsWith(".d.ts")),
-        [
-          "node_modules/@prisma/client/index.d.ts",
-          "export * from '.prisma/client/default'",
-        ],
-      ]),
+      client: rawFiles,
       document: PrismaMarkdown.write(document.datamodel),
       diagrams: ((): Record<string, string> => {
         const chapters: IPrismaMarkdownChapter[] = PrismaMarkdown.categorize(
@@ -164,7 +157,11 @@ async function readPrismaFiles(root: string): Promise<Record<string, string>> {
       const next: string = `${location}/${file}`;
       const stat: fs.Stats = await fs.promises.stat(next);
       if (stat.isDirectory()) await iterate(next);
-      else output[file] = await fs.promises.readFile(next, "utf-8");
+      else
+        output[next.substring(root.length + 1)] = await fs.promises.readFile(
+          next,
+          "utf-8",
+        );
     }
   }
   await iterate(root);

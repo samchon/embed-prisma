@@ -139,7 +139,7 @@ export namespace IEmbedPrismaResult {
      * Prisma Client, even in environments where the schema hasn't been
      * deployed to a database.
      */
-    nodeModules: Record<string, string>;
+    client: Record<string, string>;
   }
 
   /**
