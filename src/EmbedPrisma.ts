@@ -1,5 +1,5 @@
-import { generateClient } from "@prisma/client-generator-js";
-import { DMMF } from "@prisma/generator-helper";
+import { generateClient } from "@prisma/client-generator-ts";
+import { DMMF, GeneratorConfig } from "@prisma/generator-helper";
 import {
   ConfigMetaFormat,
   MultipleSchemas,
@@ -11,7 +11,6 @@ import {
 import crypto from "crypto";
 import fs from "fs";
 import os from "os";
-import path from "path";
 import { IPrismaMarkdownChapter, PrismaMarkdown } from "prisma-markdown";
 
 import { IEmbedPrismaResult } from "./IEmbedPrismaResult";
@@ -97,6 +96,17 @@ export class EmbedPrisma {
     const config: ConfigMetaFormat = await getConfig({
       datamodel: schemas,
     });
+    const generator: GeneratorConfig | undefined = config.generators.find(
+      (g) => g.name === "client",
+    );
+    if (generator === undefined)
+      throw new Error(`Configure "generator client".`);
+    else if (generator.provider?.value !== "prisma-client")
+      throw new Error(
+        `"generator client" must have "provider" as "prisma-client".`,
+      );
+    else if (!generator.output?.value)
+      throw new Error(`"generator client" must have an "output" field.`);
 
     // STORE SCHEMA FILES
     await Promise.all(
@@ -107,29 +117,25 @@ export class EmbedPrisma {
 
     // GENERATE CLIENT
     await generateClient({
-      // locations
-      binaryPaths: {},
+      datamodel: merged,
       schemaPath: `${directory}/schemas`,
+      runtimeBase: "@prisma/client/runtime",
       outputDir: `${directory}/output`,
-      runtimeSourcePath: require
-        .resolve("@prisma/client/runtime/client.js")
-        .split(path.sep)
-        .slice(0, -1)
-        .join(path.sep),
       generator: {
-        ...config.generators.find((g) => g.name === "client")!,
+        ...generator,
         isCustomOutput: true,
       },
-      // models
-      datamodel: merged,
       dmmf: document,
       datasources: config.datasources,
-      activeProvider: config.datasources[0]!.activeProvider,
-      // configurations
-      testMode: true,
-      copyRuntime: false,
-      clientVersion: "local",
+      binaryPaths: {},
       engineVersion: "local",
+      clientVersion: "local",
+      activeProvider: config.datasources[0]!.activeProvider,
+      target: "nodejs",
+      generatedFileExtension: "ts",
+      importFileExtension: "ts",
+      moduleFormat: "cjs",
+      tsNoCheckPreamble: true,
     });
     const rawFiles: Record<string, string> = await readPrismaFiles(
       `${directory}/output`,
@@ -137,13 +143,7 @@ export class EmbedPrisma {
     return {
       type: "success",
       schemas: Object.fromEntries(schemas),
-      nodeModules: Object.fromEntries([
-        ...Object.entries(rawFiles).filter(([key]) => key.endsWith(".d.ts")),
-        [
-          "node_modules/@prisma/client/index.d.ts",
-          "export * from '.prisma/client/default'",
-        ],
-      ]),
+      client: rawFiles,
       document: PrismaMarkdown.write(document.datamodel),
       diagrams: ((): Record<string, string> => {
         const chapters: IPrismaMarkdownChapter[] = PrismaMarkdown.categorize(
@@ -168,10 +168,11 @@ async function readPrismaFiles(root: string): Promise<Record<string, string>> {
       const next: string = `${location}/${file}`;
       const stat: fs.Stats = await fs.promises.stat(next);
       if (stat.isDirectory()) await iterate(next);
-      else if (file.endsWith(".d.ts"))
-        output[
-          `node_modules/.prisma/client/${next.substring(root.length + 1)}`
-        ] = await fs.promises.readFile(next, "utf-8");
+      else
+        output[next.substring(root.length + 1)] = await fs.promises.readFile(
+          next,
+          "utf-8",
+        );
     }
   }
   await iterate(root);

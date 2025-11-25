@@ -1,6 +1,6 @@
 {
   "name": "embed-prisma",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Exposes Prisma's compiler API for NodeJS applications",
   "scripts": {
     "build": "rimraf lib && tsc && rollup -c",
@@ -34,6 +34,7 @@
   "dependencies": {
     "@prisma/client": "^7.0.0",
     "@prisma/client-generator-js": "^7.0.0",
+    "@prisma/client-generator-ts": "^7.0.0",
     "@prisma/generator-helper": "^7.0.0",
     "@prisma/internals": "^7.0.0",
     "prisma-markdown": "^4.0.0"

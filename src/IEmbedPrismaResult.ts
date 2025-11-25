@@ -59,7 +59,7 @@ export namespace IEmbedPrismaResult {
    *   }
    *
    *   // Use TypeScript definitions
-   *   for (const [path, content] of Object.entries(result.nodeModules)) {
+   *   for (const [path, content] of Object.entries(result.client)) {
    *     writeFile(path, content);
    *   }
    * }
@@ -122,24 +122,22 @@ export namespace IEmbedPrismaResult {
     schemas: Record<string, string>;
 
     /**
-     * TypeScript definition files for the Prisma Client.
+     * Prisma Client SDK source files.
      *
      * This is a mapping where:
-     * - Keys are file paths relative to a node_modules directory
-     *   (e.g., 'node_modules/.prisma/client/index.d.ts')
-     * - Values are the TypeScript definition file contents as strings
+     * - Keys are file paths relative to the generated output directory
+     *   (e.g., 'prisma/client.ts', 'prisma/models.ts', 'prisma/enums.ts')
+     * - Values are the TypeScript source file (`.ts`) contents as strings
      *
-     * These files provide complete type definitions for the Prisma Client
-     * based on the compiled schema, enabling type-safe database access
-     * in TypeScript applications. They include interface definitions for
-     * all models, enums, queries, and mutations that can be performed.
+     * Prisma v7 generates the client SDK as TypeScript source files (`.ts`)
+     * instead of type definition files (`.d.ts`), providing full implementation
+     * code that can be directly used in TypeScript applications.
      *
-     * Applications can write these files to a node_modules directory
+     * Applications can write these files to their designated output directory
      * to provide IDE autocompletion and type checking when using the
-     * Prisma Client, even in environments where the schema hasn't been
-     * deployed to a database.
+     * Prisma Client.
      */
-    nodeModules: Record<string, string>;
+    client: Record<string, string>;
   }
 
   /**
