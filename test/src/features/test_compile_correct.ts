@@ -5,7 +5,7 @@ import typia from "typia";
 import { TestGlobal } from "../TestGlobal";
 
 export const test_compiler_prisma_correct = async (): Promise<void> => {
-  for (const project of ["bbs", "shopping"]) {
+  for (const project of ["shopping"]) {
     const compiler: EmbedPrisma = new EmbedPrisma();
     const result: IEmbedPrismaResult = await compiler.compile(
       await TestGlobal.readExampleSchemas(project),

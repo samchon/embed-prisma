@@ -1,4 +1,4 @@
-import { generateClient } from "@prisma/client-generator-js";
+import { generateClient } from "@prisma/client-generator-ts";
 import { DMMF } from "@prisma/generator-helper";
 import {
   ConfigMetaFormat,
@@ -11,7 +11,6 @@ import {
 import crypto from "crypto";
 import fs from "fs";
 import os from "os";
-import path from "path";
 import { IPrismaMarkdownChapter, PrismaMarkdown } from "prisma-markdown";
 
 import { IEmbedPrismaResult } from "./IEmbedPrismaResult";
@@ -79,7 +78,8 @@ export class EmbedPrisma {
       return catchPrismaError(error);
     } finally {
       try {
-        await fs.promises.rm(directory, { recursive: true });
+        console.log(directory);
+        // await fs.promises.rm(directory, { recursive: true });
       } catch {}
     }
   }
@@ -107,29 +107,25 @@ export class EmbedPrisma {
 
     // GENERATE CLIENT
     await generateClient({
-      // locations
-      binaryPaths: {},
+      datamodel: merged,
       schemaPath: `${directory}/schemas`,
+      runtimeBase: "./runtime",
       outputDir: `${directory}/output`,
-      runtimeSourcePath: require
-        .resolve("@prisma/client/runtime/client.js")
-        .split(path.sep)
-        .slice(0, -1)
-        .join(path.sep),
       generator: {
         ...config.generators.find((g) => g.name === "client")!,
         isCustomOutput: true,
       },
-      // models
-      datamodel: merged,
       dmmf: document,
       datasources: config.datasources,
-      activeProvider: config.datasources[0]!.activeProvider,
-      // configurations
-      testMode: true,
-      copyRuntime: false,
-      clientVersion: "local",
+      binaryPaths: {},
       engineVersion: "local",
+      clientVersion: "local",
+      activeProvider: config.datasources[0]!.activeProvider,
+      target: "nodejs",
+      generatedFileExtension: "ts",
+      importFileExtension: "ts",
+      moduleFormat: "cjs",
+      tsNoCheckPreamble: true,
     });
     const rawFiles: Record<string, string> = await readPrismaFiles(
       `${directory}/output`,
@@ -172,6 +168,7 @@ async function readPrismaFiles(root: string): Promise<Record<string, string>> {
         output[
           `node_modules/.prisma/client/${next.substring(root.length + 1)}`
         ] = await fs.promises.readFile(next, "utf-8");
+      else output[file] = await fs.promises.readFile(next, "utf-8");
     }
   }
   await iterate(root);

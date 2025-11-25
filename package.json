@@ -34,6 +34,7 @@
   "dependencies": {
     "@prisma/client": "^7.0.0",
     "@prisma/client-generator-js": "^7.0.0",
+    "@prisma/client-generator-ts": "^7.0.0",
     "@prisma/generator-helper": "^7.0.0",
     "@prisma/internals": "^7.0.0",
     "prisma-markdown": "^4.0.0"
